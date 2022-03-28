@@ -11,7 +11,7 @@ func ExampleLRU() {
 
 	queue.Push("Hello", 5)
 
-	if e := queue.Contains("Hello"); e != nil {
+	if e := queue.Get("Hello"); e != nil {
 		fmt.Println(*e)
 		// Output: 5
 	}
