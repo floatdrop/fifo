@@ -51,6 +51,7 @@ func (L *FIFO[K, V]) Push(key K, value V) *Evicted[K, V] {
 
 	e := L.ll.Back()
 	i := e.Value
+	evictedKey := i.key
 	evictedValue := i.value
 	delete(L.cache, i.key)
 
@@ -59,7 +60,7 @@ func (L *FIFO[K, V]) Push(key K, value V) *Evicted[K, V] {
 	L.cache[key] = e
 	L.ll.MoveToFront(e)
 	if evictedValue != nil {
-		return &Evicted[K, V]{key, *evictedValue}
+		return &Evicted[K, V]{evictedKey, *evictedValue}
 	}
 	return nil
 }
