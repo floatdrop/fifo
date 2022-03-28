@@ -43,10 +43,8 @@ func (L *FIFO[K, V]) Push(key K, value V) *Evicted[K, V] {
 	defer L.m.Unlock()
 
 	if e, ok := L.cache[key]; ok {
-		previousValue := e.Value.value
-		L.ll.MoveToFront(e)
 		e.Value.value = &value
-		return &Evicted[K, V]{key, *previousValue}
+		return nil
 	}
 
 	e := L.ll.Back()

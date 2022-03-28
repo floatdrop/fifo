@@ -55,11 +55,11 @@ func TestFIFO(t *testing.T) {
 		t.Fatalf("third element not be rearranged after get: %+v", e)
 	}
 
-	if e := f.Push(4, 8); e == nil || e.Key != 4 || e.Value != 4 {
-		t.Fatalf("replacing with push should evict old value: %+v", e)
+	if e := f.Push(4, 8); e != nil {
+		t.Fatalf("replacing with push should not evict old value: %+v", e)
 	}
 
-	if e := f.Push(6, 6); e == nil || e.Value != 5 {
-		t.Fatalf("updated key should be moved in front of queue: %+v", e)
+	if e := f.Push(6, 6); e == nil || e.Key != 4 || e.Value != 8 {
+		t.Fatalf("updated key should not be moved in front of queue: %+v", e)
 	}
 }
