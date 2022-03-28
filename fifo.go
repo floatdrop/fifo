@@ -19,7 +19,7 @@ type entry[K comparable, V any] struct {
 }
 
 type Evicted[K comparable, V any] struct {
-	Key K
+	Key   K
 	Value V
 }
 
