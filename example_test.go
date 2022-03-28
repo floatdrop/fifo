@@ -6,7 +6,7 @@ import (
 	"github.com/floatdrop/fifo"
 )
 
-func ExampleLRU() {
+func ExampleFIFO() {
 	queue := fifo.New[string, int](256)
 
 	queue.Push("Hello", 5)
