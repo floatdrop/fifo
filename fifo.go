@@ -85,6 +85,26 @@ func (L *FIFO[K, V]) Remove(key K) *V {
 	return nil
 }
 
+func (L *FIFO[K, V]) Victim() *K {
+	if L.size < 1 {
+		return nil
+	}
+
+	L.m.Lock()
+	defer L.m.Unlock()
+
+	e := L.ll.Back()
+	i := e.Value
+	evictedKey := i.key
+	evictedValue := i.value
+
+	if evictedValue == nil {
+		return nil
+	}
+
+	return &evictedKey
+}
+
 func New[K comparable, V any](size int) *FIFO[K, V] {
 	c := &FIFO[K, V]{
 		ll:    list.New[*entry[K, V]](),

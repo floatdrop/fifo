@@ -7,6 +7,10 @@ import (
 func TestFIFO_zero(t *testing.T) {
 	f := New[int, int](0)
 
+	if f.Victim() != nil {
+		t.Fatalf("no victims in empty cache")
+	}
+
 	if e := f.Push(1, 1); e == nil || e.Value != 1 {
 		t.Fatalf("first element should be evicted")
 	}
@@ -23,12 +27,20 @@ func TestFIFO(t *testing.T) {
 		t.Fatalf("fifo must be empty")
 	}
 
+	if f.Victim() != nil {
+		t.Fatalf("no victims in empty cache")
+	}
+
 	if f.Push(1, 1) != nil {
 		t.Fatalf("first element should not be evicted")
 	}
 
 	if f.Push(2, 2) != nil {
 		t.Fatalf("second element should not be evicted")
+	}
+
+	if e := f.Victim(); e == nil || *e != 1 {
+		t.Fatalf("first element should be a victim")
 	}
 
 	if e := f.Push(3, 3); e == nil || e.Value != 1 {
