@@ -4,6 +4,9 @@
 ![Coverage](https://img.shields.io/badge/Coverage-100.0%25-brightgreen)
 [![Go Report Card](https://goreportcard.com/badge/github.com/floatdrop/fifo)](https://goreportcard.com/report/github.com/floatdrop/fifo)
 
+> [!CAUTION]
+> This repository is archived. Eviction implementations moved to [evict](https://github.com/floatdrop/evict) library.
+
 Thread safe GoLang fixed size FIFO with O(1) `Get`.
 
 ## Example
